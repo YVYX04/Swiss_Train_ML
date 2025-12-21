@@ -24,7 +24,7 @@ RAW_BASE_DIR = Path("../../data/raw")
 INTERIM_BASE_DIR = Path("../../data/interim")
 
 # the months
-MONTHS = ["2025_09"]
+MONTHS = ["2025_01", "2025_09"]
 
 # Raw column names from IST docs
 USECOLS = [
@@ -168,6 +168,7 @@ def process_file(file_path: Path, interim_dir: Path):
             subset=["trip_id", "stop_id"], keep="last"
         )
 
+        # WARNING: I focus only on SBB operator !
         # keep only rows where operator_code == SBB
         chunk = chunk[chunk["operator_code"] == "SBB"].copy()
         if chunk.empty:
@@ -239,5 +240,6 @@ def clean_ist_data():
 
 
 if __name__ == "__main__":
+    print("Starting IST data cleaning...")
     clean_ist_data()
 
